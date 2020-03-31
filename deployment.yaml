@@ -3,19 +3,30 @@ kind: Deployment
 metadata:
   name: aggregator-service-deployment
   labels:
-    app: aggregator-service
+    app: aggregator-service-deployment
 spec:
-  replicas: 3
   selector:
     matchLabels:
-      app: aggregator-service
+      app: aggregator-service-deployment
   template:
     metadata:
       labels:
-        app: aggregator-service
+        app: aggregator-service-deployment
     spec:
       containers:
       - name: aggregator-service
         image: divesh212/aggregator-service:tag1
         ports:
         - containerPort: 8093
+        env:
+        - name: USER_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: USER_SERVICE_URL
+              name: config-map
+        - name: ORDER_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: ORDER_SERVICE_URL
+              name: config-map
+      restartPolicy: Never
