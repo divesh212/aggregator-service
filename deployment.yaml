@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aggregator-service-deployment
+  labels:
+    app: aggregator-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aggregator-service
+  template:
+    metadata:
+      labels:
+        app: aggregator-service
+    spec:
+      containers:
+      - name: aggregator-service
+        image: divesh212/aggregator-service:tag1
+        ports:
+        - containerPort: 8093
