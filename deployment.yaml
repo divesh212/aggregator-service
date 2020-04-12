@@ -29,4 +29,8 @@ spec:
             configMapKeyRef:
               key: ORDER_SERVICE_URL
               name: config-map
-      restartPolicy: Never
+        - name: JAEGER_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: JAEGER_HOST
+              name: config-map
